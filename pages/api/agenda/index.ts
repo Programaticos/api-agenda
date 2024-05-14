@@ -16,12 +16,6 @@ export default async function handler(
 ) {
   // Aplicar las cabeceras CORS
   setCORSHeaders(res);
-
-  // Pre-flight request handling for CORS
-  if (req.method === "OPTIONS") {
-    res.status(200).end();
-    return;
-  }
   const { method } = req;
   const { id, name, phone, email, address } = req.body;
   switch (method) {
