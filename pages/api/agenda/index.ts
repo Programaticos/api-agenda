@@ -9,6 +9,8 @@ type Data = {
 // Configuración de cabeceras CORS
 function setCORSHeaders(res: NextApiResponse) {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
 }
 export default async function handler(
   req: NextApiRequest,
@@ -16,6 +18,10 @@ export default async function handler(
 ) {
   // Aplicar las cabeceras CORS
   setCORSHeaders(res);
+  if (req.method === "OPTIONS") {
+    res.status(200).end();
+    return;
+  }
   const { method } = req;
   const { id, name, phone, email, address } = req.body;
   switch (method) {
